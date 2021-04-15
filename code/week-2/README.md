@@ -25,8 +25,8 @@ if(len(observations) <= len(pseudo_ranges)):
         for p, o in zip(pseudo_ranges, observations):
                 tmp = norm_pdf(o,p,stdev)
                 distance_prob *= tmp
-    else:
-        distance_prob = 0
+else:
+    distance_prob = 0
 
 </code>
 </pre>
