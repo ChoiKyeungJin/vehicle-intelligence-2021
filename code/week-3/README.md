@@ -1,3 +1,40 @@
+# update_ekf
+
+기존의 KF는 이산적인 데이터에 대해서만 사용이 가능하기 때문에 연속적인 데이터를 다루기위해
+EKF를 사용한다.
+전체적인 흐름은 baysfilter를 기반으로 한 KF와 유사하지만 Kalman Gain을 구해주는 과정이 추가된다.
+
+<pre>
+<code>
+# state variable의 쟈코비안 행렬을 구한다.
+H_j = Jacobian(self.x)
+
+# Kalman gain을 구하기 위한 중간 계산을 한다.
+S = np.dot(np.dot(H_j, self.P), H_j.T) + self.R
+
+# Kalman gian을 계산한다.
+K = np.dot(np.dot(self.P, H_j.T), np.linalg.inv(S)) 
+
+# 관측된 값과 예측된 값의 오차를 계산한다.
+px, py, vx, vy = self.x
+r = sqrt(px*px+py*py)
+p = atan2(py,px)
+r_dot = (px*vx+py*vy)/r
+h = np.array([r,p,r_dot], dtype=np.float32)
+y = z - h
+
+# 라디안 각도의 범위를 -PI에서 PI까지로 보정한다.
+if (z[1] > pi): z[1] -=2*pi
+elif (z[1] < -pi): z[1] +=2*pi
+
+# K, y, x를 이용하여 예측을 갱신하고, P, K, H_j를 이용하여 새로운 예측 공분산 P를 계산한다.
+self.x = self.x + np.dot(K,y)
+self.P = np.dot(np.eye(4)-np.dot(K,H_j), self.P)
+</code>
+</pre>
+
+
+
 # Week 3 - Kalman Filters, EKF and Sensor Fusion
 
 ---
