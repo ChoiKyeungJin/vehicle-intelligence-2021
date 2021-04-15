@@ -1,3 +1,15 @@
+# update_weights
+multi-variate Gaussian Distribution을 이용하여 각 파티클의 가중치를 업데이트 한다.
+1. 센서 범위 이내로 인지할 수 있는 랜드마크들을 구한다(예측한다).(sensor_range보다 유클리디안 거리가 작으면 보이는 것으로 취급)(line 84~95)
+2. 관측된 랜드마크의 좌표계를 로컬에서 전체 맵 좌표로 전환한다.(변환식 사용)(line 99~107)
+3. 예측(1번)과 관측(2번)을 associate()함수를 이용하여 매칭하고 반환한다. (line 118)
+4. 각각의 매칭과 파티클의 확률을 multi-variate Gaussian distribution 기반으로 계산하고 파티클의 weight를 업데이트 한다.(line 125~137)
+
+# resample
+가중치에 비례하는 확률로 대체된 입자들을 다시 샘플링한다.
+1. 입자의 가중치를 기반으로 particle set을 재구성한다.(line 146~148)
+2. 모든 입자의 가중치와 uniform distribution의 계산 값을 비교하여 다시 샘플링한다.(line 156~164) 
+
 # Week 4 - Motion Model & Particle Filters
 
 ---
