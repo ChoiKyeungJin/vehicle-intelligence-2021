@@ -72,18 +72,14 @@ def observation_model(landmarks, observations, pseudo_ranges, stdev):
     #     mu: expected mean distance, given by pseudo_ranges
     #     sig: squared standard deviation of measurement
     
-    if (pseudo_ranges.empty() == 0):
-        distance_prob = 0
-    
+    if(len(observations) <= len(pseudo_ranges)):
+        for p, o in zip(pseudo_ranges, observations):
+                tmp = norm_pdf(o,p,stdev)
+                distance_prob *= tmp
     else:
-        for p in pseudo_ranges:
-            for o in observations:
-                if (j+i >25):
-                    distance_prob *= 1
-                else:
-                    tmp = norm_pdf(o,p,stdev)
-                    distance_prob *= tmp
-        return distance_prob
+        distance_prob = 0
+
+    return distance_prob
 
 # Normalize a probability distribution so that the sum equals 1.0.
 def normalize_distribution(prob_dist):
