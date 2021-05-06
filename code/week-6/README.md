@@ -5,6 +5,7 @@
 # 과제 설명
 # BP
 # def choose_next_state
+
 현재 스테이트를 이전의 스테이트 할당
 now_states = self.successor_states()
 	초기값 설정
@@ -27,6 +28,7 @@ now_states = self.successor_states()
 # GNP
 # classifier.py
 # def train
+
 	X와 Y가 담긴 array 선언
         self.X_arr = np.array(X)
         self.Y_arr = np.array(Y)
