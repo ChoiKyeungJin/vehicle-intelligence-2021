@@ -2,6 +2,56 @@
 
 ---
 
+# 과제 설명
+# BP
+# def choose_next_state
+현재 스테이트를 이전의 스테이트 할당
+now_states = self.successor_states()
+	초기값 설정
+        min_cost = 9999
+        best_traj = None
+        
+	
+        for i in range(len(now_states)):
+	    현재 state와 predition을 통해서 trajectory 할당 
+            traj = self.generate_trajectory(now_states[i], predictions)
+            trajectory에 대한 cost구하고 이를 할당
+	    cost = calculate_cost(self, traj, predictions)
+            구한 cost가 기존의 cost보다 작으면 더 좋은 경로임으로 이를 반영 
+	    if cost < min_cost:
+                cost = min_cost
+                best_traj = traj
+
+        return best_traj
+
+# GNP
+# classifier.py
+# def train
+	X와 Y가 담긴 array 선언
+        self.X_arr = np.array(X)
+        self.Y_arr = np.array(Y)
+
+	X를 Y를 이용하여 적절한 class에 할당하며, 이에대한 평균과 분산을 구함
+        self.mean = np.array([self.X_arr[np.where(self.Y_arr==i)].mean(axis = 0) for i in self.classes])
+        self.std = np.array([self.X_arr[np.where(self.Y_arr==i)].std(axis = 0) for i in self.classes])
+
+# def predit
+	class의 수를 이용하여  probas를 0으로 초기화 
+        probas = np.zeros(len(self.classes))
+        
+	이전에 구한 mean과 std와 관측된 observation을 이용하여 클래스에 대한 확률을 구함
+        for i in range(len(self.classes)):
+            proba = 1
+            for k in range(self.X_arr.shape[1]):
+                proba *= gaussian_prob(observation[k], self.means[i][k], self.stds[i][k])
+            probas[i] = proba
+        res = probas / probas.sum()
+
+
+
+
+
+
 ## Assignment #1
 
 Under the directory [./GNB](./GNB), you are given two Python modules:
