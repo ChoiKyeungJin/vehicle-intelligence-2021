@@ -54,6 +54,7 @@ def run_simulation(VISUALIZE=True):
     # Completed to the goal distance
     ego = road.get_ego()
     if VISUALIZE:
+        
         if ego.lane == GOAL[1]:
             print("You got to the goal in %d seconds!" % timestep)
         else:

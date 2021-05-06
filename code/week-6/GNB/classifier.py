@@ -33,7 +33,18 @@ class GNB():
         Collect the data and calculate mean and standard variation
         for each class. Record them for later use in prediction.
         '''
+        self.X_arr = np.array(X)
+        self.Y_arr = np.array(Y)
+        uni, cnt = np.unique(Y, return_counts = True)
+        self.priors = cnt/len(Y)
+        
+        self.mean = np.array([self.X_arr[np.where(self.Y_arr==i)].mean(axis = 0) for i in self.classes])
+        self.std = np.array([self.X_arr[np.where(self.Y_arr==i)].std(axis = 0) for i in self.classes])
+
+        return self
         # TODO: implement code.
+
+
 
     # Given an observation (s, s_dot, d, d_dot), predict which behaviour
     # the vehicle is going to take using GNB.
@@ -46,5 +57,7 @@ class GNB():
         Return the label for the highest conditional probability.
         '''
         # TODO: implement code.
+
+
         return "keep"
 
