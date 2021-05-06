@@ -6,8 +6,8 @@
 # BP
 # def choose_next_state
 
-현재 스테이트를 이전의 스테이트 할당
-now_states = self.successor_states()
+	현재 스테이트를 이전의 스테이트 할당
+	now_states = self.successor_states()
 	초기값 설정
         min_cost = 9999
         best_traj = None
